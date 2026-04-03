@@ -1,5 +1,5 @@
 ExternalProject_Add(libsoxr
-    GIT_REPOSITORY https://gitlab.com/shinchiro/soxr.git
+    GIT_REPOSITORY https://github.com/chirlu/soxr.git
     SOURCE_DIR ${SOURCE_LOCATION}
     UPDATE_COMMAND ""
     GIT_CLONE_FLAGS "--filter=tree:0"
@@ -11,7 +11,11 @@ ExternalProject_Add(libsoxr
         -DCMAKE_FIND_ROOT_PATH=${MINGW_INSTALL_PREFIX}
         -DBUILD_SHARED_LIBS=OFF
         -DBUILD_TESTS=OFF
+        -DBUILD_EXAMPLES=OFF
+        -DBUILD_LSR_TESTS=OFF
         -DWITH_OPENMP=OFF
+        -DWITH_LSR_BINDINGS=OFF
+        -DWITH_DEV_TRACE=OFF
         -DHAVE_WORDS_BIGENDIAN_EXITCODE=1
         -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
