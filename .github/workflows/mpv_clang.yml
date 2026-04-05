@@ -122,11 +122,17 @@ jobs:
           path: logs.7z
           retention-days: 1
 
-      - name: Uploading x86_64-${{ matrix.x86_64_level }} build
-        uses: actions/upload-artifact@master
+      # - name: Uploading x86_64-${{ matrix.x86_64_level }} build
+      #   uses: actions/upload-artifact@master
+      #   with:
+      #     name: mpv-x86_64-${{ matrix.x86_64_level }}
+      #     path: release_${{ matrix.x86_64_level }}/mpv-${{ env.BIT }}*
+
+      - name: Uploading mpv-dev release
+        uses: actions/upload-artifact@v4
         with:
-          name: mpv-x86_64-${{ matrix.x86_64_level }}
-          path: release_${{ matrix.x86_64_level }}/mpv-${{ env.BIT }}*
+          name: mpv-dev-${{ env.BIT }}-${{ matrix.x86_64_level }}
+          path: release_${{ matrix.x86_64_level }}/mpv-dev-${{ env.BIT }}*
 
       - name: Cleaning build directory
         if: always()
