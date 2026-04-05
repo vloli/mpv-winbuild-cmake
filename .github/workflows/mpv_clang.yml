@@ -13,7 +13,7 @@ on:
       github_release:
         description: 'Upload to Github release'
         required: false
-        default: true
+        default: false
         type: boolean
       disable_repo_cache:
         description: 'Disable repository cache (Fetch fresh source)'
@@ -107,16 +107,24 @@ jobs:
       - name: Building mpv
         id: build_mpv_step
         run: |
+          # 1. 无论是否禁用缓存，先强制清理可能残留的全局 Git 锁
+          # 这一行是解决你报错的关键
+          find .git/ -name "*.lock" -delete || true
+          
           if [[ "${{ github.event.inputs.disable_repo_cache }}" == "true" ]]; then
-            echo "检测到禁用缓存，正在以单线程安全模式更新源码..."
-            # 使用 -j 1 确保 40 多个包一个接一个克隆，绝不抢锁
-            ninja -C $BUILD_DIR update -j 1
+            echo "检测到禁用缓存，正在以串行模式强制更新所有源码..."
+            
+            targets=$(ninja -C $BUILD_DIR -t targets | grep "force-update" | cut -d: -f1)
+            for t in $targets; do
+              echo "Processing $t..."
+              ninja -C $BUILD_DIR $t -j 1
+            done
           else
             echo "使用现有缓存，正常更新..."
-            # 有缓存时，大部分目录已经存在，冲突概率极低，可以使用默认并发
             ninja -C $BUILD_DIR update
           fi
           
+          # 3. 编译 mpv
           ninja -C $BUILD_DIR mpv
 
       - name: Packaging mpv
