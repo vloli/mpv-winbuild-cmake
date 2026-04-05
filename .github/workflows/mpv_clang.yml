@@ -15,7 +15,11 @@ on:
         required: false
         default: true
         type: boolean
-
+      disable_repo_cache:
+        description: 'Disable repository cache (Fetch fresh source)'
+        required: false
+        default: false
+        type: boolean
 jobs:
   build_mpv:
     name: Building mpv (${{ matrix.llvm_arch }})
@@ -60,6 +64,7 @@ jobs:
             ${{ secrets.CACHE_VERSION }}-clang_root
 
       - name: Loading repository cache
+        if: ${{ github.event.inputs.disable_repo_cache != 'true' }}
         uses: actions/cache/restore@main
         with:
           path: src_packages
