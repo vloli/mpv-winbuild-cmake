@@ -15,6 +15,8 @@ ExternalProject_Add(mpv
         subrandr
         uchardet
         vulkan
+        vapoursynth
+        mujs
     GIT_REPOSITORY https://github.com/vloli/mpv.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--filter=tree:0"
@@ -37,9 +39,10 @@ ExternalProject_Add(mpv
         -Duchardet=enabled
         -Dvulkan=enabled
         -Dcplugins=disabled
-        -Djavascript=disabled
+        -Djavascript=enabled
         -Dlibmpv=true
         -Drubberband=disabled
+        -Dvapoursynth=enabled
         -Dc_args='-Wno-error=int-conversion'
     BUILD_COMMAND ${EXEC} LTO_JOB=1 ninja -C <BINARY_DIR>
     INSTALL_COMMAND ""

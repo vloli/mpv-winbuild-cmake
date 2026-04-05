@@ -15,7 +15,11 @@ on:
         required: false
         default: true
         type: boolean
-
+      skip_repo_cache:  # ========== 新增选项 ==========
+        description: 'Skip loading repository cache (src_packages)'
+        required: false
+        default: false
+        type: boolean
 jobs:
   build_mpv:
     name: Building mpv (${{ matrix.llvm_arch }})
@@ -59,6 +63,7 @@ jobs:
             ${{ secrets.CACHE_VERSION }}-clang_root
 
       - name: Loading repository cache
+        if: ${{ github.event.inputs.skip_repo_cache != 'true' }}
         uses: actions/cache/restore@main
         with:
           path: src_packages
@@ -120,7 +125,8 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: mpv-x86_64-${{ matrix.x86_64_level }}
-          path: release_${{ matrix.x86_64_level }}/mpv-${{ env.BIT }}*
+          # path: release_${{ matrix.x86_64_level }}/mpv-${{ env.BIT }}*
+          path: release_${{ matrix.x86_64_level }}/*.7z
 
       - name: Cleaning build directory
         if: always()
