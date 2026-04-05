@@ -30,6 +30,8 @@ ExternalProject_Add(mpv-release
         subrandr
         uchardet
         vulkan
+        vapoursynth
+        mujs
     URL ${LINK}
     SOURCE_DIR ${SOURCE_LOCATION}
     CONFIGURE_COMMAND ${EXEC} CONF=1 meson setup <BINARY_DIR> <SOURCE_DIR>
@@ -50,9 +52,10 @@ ExternalProject_Add(mpv-release
         -Duchardet=enabled
         -Dvulkan=enabled
         -Dcplugins=disabled
-        -Djavascript=disabled
+        -Djavascript=enabled
         -Dlibmpv=true
         -Drubberband=disabled
+        -Dvapoursynth=enabled
         -Dc_args='-Wno-error=int-conversion'
     BUILD_COMMAND ${EXEC} LTO_JOB=1 ninja -C <BINARY_DIR>
     INSTALL_COMMAND ""

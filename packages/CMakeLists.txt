@@ -41,6 +41,8 @@ list(APPEND ep
     libplacebo
     libarchive
     ffmpeg
+    vapoursynth
+    mujs
     mpv
     mpv-packaging
 )
