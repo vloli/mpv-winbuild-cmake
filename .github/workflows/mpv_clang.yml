@@ -15,11 +15,7 @@ on:
         required: false
         default: true
         type: boolean
-      skip_repo_cache:
-        description: 'Skip loading repository cache (Full redownload)'
-        required: false
-        default: false
-        type: boolean
+
 jobs:
   build_mpv:
     name: Building mpv (${{ matrix.llvm_arch }})
@@ -64,19 +60,12 @@ jobs:
 
       - name: Loading repository cache
         uses: actions/cache/restore@main
-        if: ${{ github.event.inputs.skip_repo_cache != 'true' }}
         with:
           path: src_packages
           key: ${{ secrets.CACHE_VERSION }}-repository-${{ github.run_id }}
           restore-keys: |
             ${{ secrets.CACHE_VERSION }}-repository
 
-      - name: Purge local repository for clean sync
-        if: ${{ github.event.inputs.skip_repo_cache == 'true' }}
-        run: |
-          echo "Skip cache requested. Purging src_packages for a fresh sync..."
-          rm -rf src_packages
-          
       - name: Loading ${{ matrix.x86_64_level }} toolchain cache
         uses: actions/cache/restore@main
         with:
