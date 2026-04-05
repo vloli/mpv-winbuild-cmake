@@ -30,7 +30,6 @@ ExternalProject_Add(mpv-release
         subrandr
         uchardet
         vulkan
-        vapoursynth
         mujs
     URL ${LINK}
     SOURCE_DIR ${SOURCE_LOCATION}
@@ -55,7 +54,6 @@ ExternalProject_Add(mpv-release
         -Djavascript=enabled
         -Dlibmpv=true
         -Drubberband=disabled
-        -Dvapoursynth=enabled
         -Dc_args='-Wno-error=int-conversion'
     BUILD_COMMAND ${EXEC} LTO_JOB=1 ninja -C <BINARY_DIR>
     INSTALL_COMMAND ""
