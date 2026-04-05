@@ -16,9 +16,12 @@ ExternalProject_Add(mpv
         uchardet
         vulkan
         mujs
-    GIT_REPOSITORY https://github.com/vloli/mpv.git
+    GIT_REPOSITORY https://github.com/mpv-player/mpv.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--filter=tree:0"
+    PATCH_COMMAND ${CMAKE_COMMAND} -E copy 
+                  ${CMAKE_CURRENT_SOURCE_DIR}/mpv-event.c.new
+                  <SOURCE_DIR>/input/event.c
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND ${EXEC} CONF=1 meson setup <BINARY_DIR> <SOURCE_DIR>
         --prefix=${MINGW_INSTALL_PREFIX}
