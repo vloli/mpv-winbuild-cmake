@@ -37,9 +37,6 @@ ExternalProject_Add(mpv
         -Duchardet=enabled
         -Dvulkan=enabled
         -Dcplugins=disabled
-        -Dd3d9-hwaccel=disabled
-        -Ddirect3d=disabled
-        -Dgl=disabled
         -Djavascript=disabled
         -Dlibmpv=true
         -Drubberband=disabled
