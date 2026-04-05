@@ -26,8 +26,7 @@ jobs:
         include:
           - llvm_arch: x86-64-v3
             x86_64_level: v3
-          - llvm_arch: znver3
-            x86_64_level: znver3
+            
     env:
       BIT: x86_64
       BUILD_DIR: build_x86_64-${{ matrix.x86_64_level }}
