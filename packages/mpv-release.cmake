@@ -54,7 +54,7 @@ ExternalProject_Add(mpv-release
         -Ddirect3d=disabled
         -Dgl=disabled
         -Djavascript=disabled
-        -Dlibmpv=false
+        -Dlibmpv=true
         -Drubberband=disabled
         -Dc_args='-Wno-error=int-conversion'
     BUILD_COMMAND ${EXEC} LTO_JOB=1 ninja -C <BINARY_DIR>
