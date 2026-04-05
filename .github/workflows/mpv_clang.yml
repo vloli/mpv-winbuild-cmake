@@ -120,8 +120,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: mpv-x86_64-${{ matrix.x86_64_level }}
-          # path: release_${{ matrix.x86_64_level }}/mpv-${{ env.BIT }}*
-          path: release_${{ matrix.x86_64_level }}/*.7z
+          path: release_${{ matrix.x86_64_level }}/mpv-${{ env.BIT }}*
 
       - name: Cleaning build directory
         if: always()
