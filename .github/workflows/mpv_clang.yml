@@ -20,6 +20,7 @@ on:
         required: false
         default: false
         type: boolean
+
 jobs:
   build_mpv:
     name: Building mpv (${{ matrix.llvm_arch }})
@@ -62,6 +63,7 @@ jobs:
           restore-keys: |
             ${{ secrets.CACHE_VERSION }}-clang_root
 
+      # ========== 加入 if 判断：选项开启则跳过 ==========
       - name: Loading repository cache
         if: ${{ github.event.inputs.skip_repo_cache != 'true' }}
         uses: actions/cache/restore@main
@@ -125,7 +127,6 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: mpv-x86_64-${{ matrix.x86_64_level }}
-          # path: release_${{ matrix.x86_64_level }}/mpv-${{ env.BIT }}*
           path: release_${{ matrix.x86_64_level }}/*.7z
 
       - name: Cleaning build directory
